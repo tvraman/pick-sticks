@@ -1,4 +1,5 @@
 use std::{io, process::exit};
+
 #[derive(Debug)]
 struct Game<'a> {
     size: u32,

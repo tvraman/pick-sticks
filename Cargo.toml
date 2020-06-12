@@ -1,5 +1,5 @@
 [package]
-name = "pick-sticks"
+name = "pick_sticks"
 version = "0.1.0"
 authors = ["raman <tv.raman.tv@gmail.com>"]
 edition = "2018"
