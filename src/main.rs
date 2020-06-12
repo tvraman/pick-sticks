@@ -59,9 +59,15 @@ fn gen_fibs_upto(game_size: u32) -> Vec<u32> {
     let mut fibs = vec![1, 2];
     let mut size = fibs.len();
     while fibs[size - 1] < game_size {
-        fibs.push(fibs[size - 1] + fibs[size - 2]);
-        size = fibs.len();
+        let mut next = fibs[size - 1] + fibs[size - 2];
+        if next < game_size {
+            fibs.push(next);
+            size = fibs.len();
+        } else {
+            break;
+        }
     }
+    println!("fibs: {:?}", fibs);
     fibs
 }
 
