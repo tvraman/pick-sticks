@@ -40,8 +40,9 @@ fn main() {
 }
 
 fn my_move(mut game: &mut Game) {
-    while 3 * (game.sticks - game.fib_base) >= game.sticks {
-        let gap = game.sticks - game.fib_base;
+    while 3 * (game.current - game.fib_base) >= game.current {
+        let gap = game.current - game.fib_base;
+        game.current = gap;
         update_fib_base(&mut game, gap);
         println!("fib_base:{}", game.fib_base);
     }
@@ -49,6 +50,9 @@ fn my_move(mut game: &mut Game) {
     game.last_move = game.sticks - game.fib_base;
     game.sticks -= game.last_move;
     game.limit = 2 * game.last_move;
+    if game.current == 0 {
+        game.current = game.sticks;
+    }
     println!("{:?}", game);
     exit(0);
 }
@@ -61,7 +65,7 @@ fn gen_fibs_upto(game_size: u32) -> Vec<u32> {
     let mut fibs = vec![1, 2];
     let mut size = fibs.len();
     while fibs[size - 1] < game_size {
-        let mut next = fibs[size - 1] + fibs[size - 2];
+        let next = fibs[size - 1] + fibs[size - 2];
         if next < game_size {
             fibs.push(next);
             size = fibs.len();
