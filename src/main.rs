@@ -4,6 +4,8 @@ use std::{io, process::exit};
 struct Game<'a> {
     size: u32,
     sticks: u32,
+    limit: u32,
+    fib_base: u32,
     last_move: u32,
     fibonacci: &'a Vec<u32>,
 }
@@ -18,28 +20,41 @@ fn main() {
     }
     let fibs = gen_fibs_upto(game_size);
     println!("Fibonacci: {:?}", fibs);
-    let game = Game {
+    let mut game = Game {
         size: game_size,
         sticks: game_size,
+        fib_base: 1,
+        limit: game_size / 3,
         fibonacci: &fibs,
         last_move: 0,
     };
     println!("{:?}", game);
     if !fib_p(&fibs, game.size) {
         println!("I play first.");
-        my_move(&game);
+        my_move(&mut game);
     }
     while game.sticks > 0 {
-        your_move(&game);
-        my_move(&game);
+        your_move(&mut game);
+        my_move(&mut game);
     }
 }
 
-fn my_move(game: &Game) {
-    game.sticks;
+fn my_move(game: &mut Game) {
+    if game.last_move != 0 {
+        game.limit = game.sticks / 3;
+    }
+    for f in game.fibonacci {
+        if f < &game.sticks {
+            game.fib_base = *f;
+        } else {
+            break;
+        }
+    }
+    println!("limit: {} fib_base: {}", game.limit, game.fib_base);
+    exit(0);
 }
 
-fn your_move(game: &Game) {
+fn your_move(game: &mut Game) {
     game.sticks;
 }
 
