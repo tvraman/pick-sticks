@@ -19,7 +19,7 @@ fn main() {
         exit(1);
     }
     let fibs = gen_fibs_upto(game_size);
-    println!("Fibonacci: {:?}", fibs);
+
     let mut game = Game {
         size: game_size,
         sticks: game_size,
@@ -28,7 +28,7 @@ fn main() {
         fibonacci: &fibs,
         last_move: 0,
     };
-    println!("{:?}", game);
+
     if !fib_p(&fibs, game.size) {
         println!("I play first.");
         my_move(&mut game);
@@ -40,8 +40,10 @@ fn main() {
 }
 
 fn my_move(game: &mut Game) {
-    if game.last_move != 0 {
+    if game.last_move == 0 {
         game.limit = game.sticks / 3;
+    } else {
+        game.limit = 2 * game.last_move;
     }
     for f in game.fibonacci {
         if f < &game.sticks {
@@ -50,7 +52,7 @@ fn my_move(game: &mut Game) {
             break;
         }
     }
-    println!("limit: {} fib_base: {}", game.limit, game.fib_base);
+    println!("{:?}", game);
     exit(0);
 }
 
