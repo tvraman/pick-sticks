@@ -41,7 +41,8 @@ fn main() {
 
 fn my_move(mut game: &mut Game) {
     while 3 * (game.sticks - game.fib_base) >= game.sticks {
-        update_fib_base(&mut game, game.sticks - game.fib_base);
+        let gap = game.sticks - game.fib_base;
+        update_fib_base(&mut game, gap);
     }
     game.last_move = game.sticks - game.fib_base;
     game.sticks -= game.last_move;
