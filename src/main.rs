@@ -91,3 +91,13 @@ fn read_number() -> u32 {
     };
     input
 }
+
+fn update_fib_base(game: &mut Game, sticks: u32) {
+    for f in game.fibonacci {
+        if f < &sticks {
+            game.fib_base = *f;
+        } else {
+            break;
+        }
+    }
+}
