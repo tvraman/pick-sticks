@@ -2,7 +2,7 @@ use std::{io, process::exit};
 
 #[derive(Debug)]
 struct Game<'a> {
-    size: u32,
+    current: u32,
     sticks: u32,
     limit: u32,
     fib_base: u32,
@@ -21,7 +21,7 @@ fn main() {
     let fibs = gen_fibs_upto(game_size);
 
     let mut game = Game {
-        size: game_size,
+        current: game_size,
         sticks: game_size,
         fib_base: fibs[fibs.len() - 1],
         limit: game_size - 1,
@@ -29,7 +29,7 @@ fn main() {
         last_move: 0,
     };
 
-    if !fib_p(&fibs, game.size) {
+    if !fib_p(&fibs, game.sticks) {
         println!("I play first.");
         my_move(&mut game);
     }
