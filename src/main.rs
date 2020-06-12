@@ -39,7 +39,7 @@ fn main() {
     }
 }
 
-fn my_move(game: &mut Game) {
+fn my_move(mut game: &mut Game) {
     if game.last_move != 0 {
         game.limit = 2 * game.last_move;
     }
@@ -59,7 +59,7 @@ fn my_move(game: &mut Game) {
             guess, game.sticks
         );
     } else {
-        println!("Need to think more");
+        update_fib_base(&mut game, guess);
     }
     println!("{:?}", game);
     exit(0);
