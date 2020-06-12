@@ -24,7 +24,7 @@ fn main() {
         size: game_size,
         sticks: game_size,
         fib_base: 1,
-        limit: game_size / 3,
+        limit: game_size - 1,
         fibonacci: &fibs,
         last_move: 0,
     };
@@ -40,9 +40,7 @@ fn main() {
 }
 
 fn my_move(game: &mut Game) {
-    if game.last_move == 0 {
-        game.limit = game.sticks / 3;
-    } else {
+    if game.last_move != 0 {
         game.limit = 2 * game.last_move;
     }
     for f in game.fibonacci {
