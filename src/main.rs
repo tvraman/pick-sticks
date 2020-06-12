@@ -50,6 +50,17 @@ fn my_move(game: &mut Game) {
             break;
         }
     }
+    let guess = game.sticks - game.fib_base;
+    if 3 * guess < game.sticks {
+        game.last_move = guess;
+        game.sticks -= guess;
+        println!(
+            "I pick {} sticks, there are now {} sticks left",
+            guess, game.sticks
+        );
+    } else {
+        println!("Need to think more");
+    }
     println!("{:?}", game);
     exit(0);
 }
