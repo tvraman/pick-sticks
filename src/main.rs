@@ -23,7 +23,7 @@ fn main() {
     let mut game = Game {
         size: game_size,
         sticks: game_size,
-        fib_base: 1,
+        fib_base: fibs[fibs.len() - 1],
         limit: game_size - 1,
         fibonacci: &fibs,
         last_move: 0,
@@ -40,27 +40,12 @@ fn main() {
 }
 
 fn my_move(mut game: &mut Game) {
-    if game.last_move != 0 {
-        game.limit = 2 * game.last_move;
+    while 3 * (game.sticks - game.fib_base) >= game.sticks {
+        update_fib_base(&mut game, game.sticks - game.fib_base);
     }
-    for f in game.fibonacci {
-        if f < &game.sticks {
-            game.fib_base = *f;
-        } else {
-            break;
-        }
-    }
-    let guess = game.sticks - game.fib_base;
-    if 3 * guess < game.sticks {
-        game.last_move = guess;
-        game.sticks -= guess;
-        println!(
-            "I pick {} sticks, there are now {} sticks left",
-            guess, game.sticks
-        );
-    } else {
-        update_fib_base(&mut game, guess);
-    }
+    game.last_move = game.sticks - game.fib_base;
+    game.sticks -= game.last_move;
+    game.limit = 2 * game.last_move;
     println!("{:?}", game);
     exit(0);
 }
