@@ -6,6 +6,7 @@ pub struct Game {
     limit: u16,
     fib_base: u16,
     last_move: u16,
+    stack: Vec<u16>,
     fibonacci: Vec<u16>,
 }
 
@@ -36,6 +37,7 @@ impl Game {
             sticks: size,
             fib_base: fibs[fibs.len() - 2],
             limit: size - 1,
+            stack: Vec::new(),
             fibonacci: fibs,
             last_move: 0,
         }
@@ -71,6 +73,7 @@ impl Game {
         }
         self.update_fib_base();
         while 3 * (self.current - self.fib_base) >= self.current {
+            self.stack.push(self.current);
             self.current = self.current - self.fib_base;
             self.update_fib_base();
         }
@@ -79,7 +82,13 @@ impl Game {
         self.sticks -= self.last_move;
         self.limit = 2 * self.last_move;
         if self.current == 0 {
-            self.current = self.sticks;
+            self.current = match self.stack.pop() {
+                Some(e) => e,
+                None => {
+                    println!("Stack empty");
+                    exit(0);
+                }
+            };
         }
         println!("I picked {}; {} sticks left.", self.last_move, self.sticks);
         println!("{:?}", self);
