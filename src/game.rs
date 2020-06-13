@@ -68,16 +68,16 @@ impl Game {
             println!("I pick {} sticks !", self.last_move);
             return;
         }
-        dbg!(println!("{:?}", self));
+
         while 3 * (self.current - self.fib_base) >= self.current {
             self.current = self.current - self.fib_base;
             self.update_fib_base();
-            self.last_move = self.current - self.fib_base;
-            if self.last_move > self.limit {
+            if self.sticks - self.fib_base > self.limit {
+                self.update_fib_base();
                 continue;
             }
         }
-
+        self.last_move = self.current - self.fib_base;
         self.current -= self.last_move;
         self.sticks -= self.last_move;
         self.limit = 2 * self.last_move;
@@ -85,7 +85,7 @@ impl Game {
             self.current = self.sticks;
         }
         println!("I picked {}; {} sticks left.", self.last_move, self.sticks);
-        dbg!(println!("{:?}", self));
+        println!("{:?}", self);
     }
 
     fn your_move(&mut self) {
@@ -102,7 +102,7 @@ impl Game {
             "You picked {}; {} sticks left.",
             self.last_move, self.sticks
         );
-        dbg!(println!("{:?}", self));
+        println!("{:?}", self);
     }
 
     fn update_fib_base(&mut self) {
