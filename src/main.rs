@@ -2,7 +2,7 @@ use std::io;
 use std::process::exit;
 
 mod game;
-
+use crate::game::Game;
 fn main() {
     println!("Welcome To Pick Up Sticks!");
     println!("How many sticks would you like to play with?");
@@ -12,7 +12,7 @@ fn main() {
         exit(1);
     }
 
-    let game = game::new(game_size);
+    let mut game = Game::build(game_size);
     game.play();
 }
 

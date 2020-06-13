@@ -1,12 +1,12 @@
 use std::process::exit;
 #[derive(Debug)]
-pub struct Game<'a> {
+pub struct Game {
     pub current: u32,
     pub sticks: u32,
     pub limit: u32,
     pub fib_base: u32,
     pub last_move: u32,
-    pub fibonacci: &'a Vec<u32>,
+    pub fibonacci: Vec<u32>,
 }
 
 fn gen_fibs_upto(game_size: u32) -> Vec<u32> {
@@ -28,21 +28,21 @@ fn fib_p(fibs: &Vec<u32>, f: u32) -> bool {
     false
 }
 
-impl Game<'_> {
-    pub const fn new(size: u32) -> Game<'static> {
+impl Game {
+    pub fn build(size: u32) -> Game {
         let fibs = gen_fibs_upto(size);
         Game {
             current: size,
             sticks: size,
             fib_base: fibs[fibs.len() - 2],
             limit: size - 1,
-            fibonacci: &fibs,
+            fibonacci: fibs,
             last_move: 0,
         }
     }
 
-    pub fn play(&self) {
-        if !fib_p(self.fibonacci, self.sticks) {
+    pub fn play(&mut self) {
+        if !fib_p(&self.fibonacci, self.sticks) {
             println!("I play first.");
             self.my_move();
         }
@@ -100,8 +100,8 @@ impl Game<'_> {
     }
 
     fn update_fib_base(&mut self) {
-        for f in self.fibonacci {
-            if *f < self.current {
+        for f in &self.fibonacci {
+            if f < &self.current {
                 self.fib_base = *f;
             } else {
                 break;
