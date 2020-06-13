@@ -68,14 +68,10 @@ impl Game {
             println!("I pick {} sticks !", self.last_move);
             return;
         }
-
+        self.update_fib_base();
         while 3 * (self.current - self.fib_base) >= self.current {
             self.current = self.current - self.fib_base;
             self.update_fib_base();
-            if self.sticks - self.fib_base > self.limit {
-                self.update_fib_base();
-                continue;
-            }
         }
         self.last_move = self.current - self.fib_base;
         self.current -= self.last_move;
@@ -104,6 +100,7 @@ impl Game {
         );
         println!("{:?}", self);
     }
+    // fib_base is the  largest Fibonacci number less than current.
 
     fn update_fib_base(&mut self) {
         for f in &self.fibonacci {
