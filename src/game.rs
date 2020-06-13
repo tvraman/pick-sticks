@@ -11,7 +11,7 @@ pub struct Game {
 }
 
 fn gen_fibs_upto(game_size: u16) -> Vec<u16> {
-    let mut fibs = vec![0, 1, 1, 2];
+    let mut fibs = vec![1, 1, 2];
     let mut size = fibs.len();
     while fibs[size - 1] <= game_size {
         fibs.push(fibs[size - 1] + fibs[size - 2]);
@@ -33,9 +33,9 @@ impl Game {
     pub fn build(size: u16) -> Game {
         let fibs = gen_fibs_upto(size);
         Game {
-            current: size,
             sticks: size,
             fib_base: fibs[fibs.len() - 2],
+            current: size - fibs[fibs.len() - 2],
             limit: size - 1,
             stack: Vec::new(),
             fibonacci: fibs,
@@ -74,16 +74,14 @@ impl Game {
             return;
         }
         self.update_fib_base();
+        println!("{:?}", self);
         let mut next_move = self.current - self.fib_base;
-        println!("next:{}", next_move);
-        while (3 * next_move) >= self.current || (next_move > self.limit) {
-            self.current = next_move;
+        while ((3 * next_move) >= self.current) || (next_move > self.limit) {
             self.stack.push(self.current);
+            self.current -= next_move;
             self.update_fib_base();
-            println!("{:?}", self);
             next_move = self.current - self.fib_base;
         }
-        println!("exitted while: next is {}", next_move);
         self.last_move = next_move;
         self.current -= self.last_move;
         self.sticks -= self.last_move;
