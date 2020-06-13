@@ -112,7 +112,7 @@ impl Game {
 
     fn update_fib_base(&mut self) {
         for f in &self.fibonacci {
-            if f < &self.current {
+            if f <= &self.current {
                 self.fib_base = *f;
             } else {
                 break;
