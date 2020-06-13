@@ -74,14 +74,14 @@ impl Game {
             return;
         }
         self.update_fib_base();
-        while (3 * (self.current - self.fib_base)) >= self.current
-            && ((self.current - self.fib_base) > self.limit)
-        {
-            self.current = self.current - self.fib_base;
+        let mut next_move = self.current - self.fib_base;
+        while (3 * next_move) >= self.current && (next_move > self.limit) {
+            self.current -= next_move;
+            next_move = self.current - self.fib_base;
             self.stack.push(self.current);
             self.update_fib_base();
         }
-        self.last_move = self.current - self.fib_base;
+        self.last_move = next_move;
         self.current -= self.last_move;
         self.sticks -= self.last_move;
         self.limit = 2 * self.last_move;
