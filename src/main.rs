@@ -49,6 +49,7 @@ fn my_move(mut game: &mut Game) {
     if game.limit >= game.current {
         game.last_move = game.current;
         game.sticks -= game.last_move;
+        game.current = game.sticks;
         game.limit = 2 * game.last_move;
         println!("I pick {} sticks !", game.last_move);
         game.sticks -= game.last_move;
