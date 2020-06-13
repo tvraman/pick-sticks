@@ -1,6 +1,16 @@
 use std::io;
+use std::process::exit;
 
-mod game;
+// mod game;
+#[derive(Debug)]
+struct Game<'a> {
+    current: u32,
+    sticks: u32,
+    limit: u32,
+    fib_base: u32,
+    last_move: u32,
+    fibonacci: &'a Vec<u32>,
+}
 
 fn main() {
     println!("Welcome To Pick Up Sticks!");
