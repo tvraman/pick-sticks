@@ -14,12 +14,12 @@ fn main() {
     Game::build(game_size).play();
 }
 
-fn read_number() -> u32 {
+fn read_number() -> u16 {
     let mut input = String::new();
     io::stdin()
         .read_line(&mut input)
         .expect("Failed to read line");
-    let input: u32 = match input.trim().parse() {
+    let input: u16 = match input.trim().parse() {
         Ok(num) => num,
         Err(e) => {
             eprintln!("{}: Please enter  a  valid number", e);

@@ -1,15 +1,15 @@
 use std::process::exit;
 #[derive(Debug)]
 pub struct Game {
-    current: u32,
-    sticks: u32,
-    limit: u32,
-    fib_base: u32,
-    last_move: u32,
-    fibonacci: Vec<u32>,
+    current: u16,
+    sticks: u16,
+    limit: u16,
+    fib_base: u16,
+    last_move: u16,
+    fibonacci: Vec<u16>,
 }
 
-fn gen_fibs_upto(game_size: u32) -> Vec<u32> {
+fn gen_fibs_upto(game_size: u16) -> Vec<u16> {
     let mut fibs = vec![1, 2];
     let mut size = fibs.len();
     while fibs[size - 1] <= game_size {
@@ -19,7 +19,7 @@ fn gen_fibs_upto(game_size: u32) -> Vec<u32> {
     fibs
 }
 
-fn fib_p(fibs: &Vec<u32>, f: u32) -> bool {
+fn fib_p(fibs: &Vec<u16>, f: u16) -> bool {
     for n in fibs {
         if f == *n {
             return true;
@@ -29,7 +29,7 @@ fn fib_p(fibs: &Vec<u32>, f: u32) -> bool {
 }
 
 impl Game {
-    pub fn build(size: u32) -> Game {
+    pub fn build(size: u16) -> Game {
         let fibs = gen_fibs_upto(size);
         Game {
             current: size,
