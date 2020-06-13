@@ -23,7 +23,7 @@ fn main() {
     let mut game = Game {
         current: game_size,
         sticks: game_size,
-        fib_base: fibs[fibs.len() - 1],
+        fib_base: fibs[fibs.len() - 2],
         limit: game_size - 1,
         fibonacci: &fibs,
         last_move: 0,
@@ -79,6 +79,7 @@ fn your_move(game: &mut Game) {
     game.last_move = read_number();
     game.sticks -= game.last_move;
     game.current -= game.last_move;
+    game.limit = 2 * game.last_move;
     println!(
         "You picked {}; {} sticks left.",
         game.last_move, game.sticks
@@ -90,13 +91,8 @@ fn gen_fibs_upto(game_size: u32) -> Vec<u32> {
     let mut fibs = vec![1, 2];
     let mut size = fibs.len();
     while fibs[size - 1] < game_size {
-        let next = fibs[size - 1] + fibs[size - 2];
-        if next < game_size {
-            fibs.push(next);
-            size = fibs.len();
-        } else {
-            break;
-        }
+        fibs.push(fibs[size - 1] + fibs[size - 2]);
+        size = fibs.len();
     }
     println!("fibs: {:?}", fibs);
     fibs
