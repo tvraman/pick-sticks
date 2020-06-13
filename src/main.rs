@@ -124,7 +124,7 @@ fn read_number() -> u32 {
 
 fn update_fib_base(mut game: &mut Game) {
     for f in game.fibonacci {
-        if f < &game.current {
+        if *f < game.current {
             game.fib_base = *f;
         } else {
             break;
