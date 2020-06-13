@@ -9,7 +9,48 @@ pub struct Game<'a> {
     pub fibonacci: &'a Vec<u32>,
 }
 
+fn gen_fibs_upto(game_size: u32) -> Vec<u32> {
+    let mut fibs = vec![1, 2];
+    let mut size = fibs.len();
+    while fibs[size - 1] <= game_size {
+        fibs.push(fibs[size - 1] + fibs[size - 2]);
+        size = fibs.len();
+    }
+    fibs
+}
+
+fn fib_p(fibs: &Vec<u32>, f: u32) -> bool {
+    for n in fibs {
+        if f == *n {
+            return true;
+        }
+    }
+    false
+}
+
 impl Game<'_> {
+    pub const fn new(size: u32) -> Game<'static> {
+        let fibs = gen_fibs_upto(size);
+        Game {
+            current: size,
+            sticks: size,
+            fib_base: fibs[fibs.len() - 2],
+            limit: size - 1,
+            fibonacci: &fibs,
+            last_move: 0,
+        }
+    }
+
+    pub fn play(&self) {
+        if !fib_p(self.fibonacci, self.sticks) {
+            println!("I play first.");
+            self.my_move();
+        }
+        while self.sticks > 0 {
+            self.your_move();
+            self.my_move();
+        }
+    }
     pub fn my_move(&mut self) {
         if self.limit >= self.sticks {
             self.last_move = self.sticks;

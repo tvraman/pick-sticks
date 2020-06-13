@@ -11,45 +11,9 @@ fn main() {
         println!("Game size of 2  or less is too small");
         exit(1);
     }
-    let fibs = gen_fibs_upto(game_size);
 
-    let mut game = game::Game {
-        current: game_size,
-        sticks: game_size,
-        fib_base: fibs[fibs.len() - 2],
-        limit: game_size - 1,
-        fibonacci: &fibs,
-        last_move: 0,
-    };
-
-    if !fib_p(&fibs, game.sticks) {
-        println!("I play first.");
-        game.my_move();
-    }
-    while game.sticks > 0 {
-        game.your_move();
-        game.my_move();
-    }
-}
-
-fn gen_fibs_upto(game_size: u32) -> Vec<u32> {
-    let mut fibs = vec![1, 2];
-    let mut size = fibs.len();
-    while fibs[size - 1] <= game_size {
-        fibs.push(fibs[size - 1] + fibs[size - 2]);
-        size = fibs.len();
-    }
-    println!("fibs: {:?}", fibs);
-    fibs
-}
-
-fn fib_p(fibs: &Vec<u32>, f: u32) -> bool {
-    for n in fibs {
-        if f == *n {
-            return true;
-        }
-    }
-    false
+    let game = game::new(game_size);
+    game.play();
 }
 
 fn read_number() -> u32 {
