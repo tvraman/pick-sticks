@@ -64,8 +64,10 @@ impl Game {
         if self.limit >= self.current {
             self.last_move = self.current;
             self.sticks -= self.last_move;
-            self.current = self.sticks;
-            self.update_fib_base();
+            self.current = match self.stack.pop() {
+                Some(e) => e,
+                None => exit(0),
+            };
             self.limit = 2 * self.last_move;
             self.update_fib_base();
             println!("I pick {} sticks !", self.last_move);
@@ -81,15 +83,6 @@ impl Game {
         self.current -= self.last_move;
         self.sticks -= self.last_move;
         self.limit = 2 * self.last_move;
-        if self.current == 0 {
-            self.current = match self.stack.pop() {
-                Some(e) => e,
-                None => {
-                    println!("Stack empty");
-                    exit(0);
-                }
-            };
-        }
         println!("I picked {}; {} sticks left.", self.last_move, self.sticks);
         println!("{:?}", self);
     }
