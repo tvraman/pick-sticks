@@ -63,6 +63,7 @@ impl Game {
             self.last_move = self.current;
             self.sticks -= self.last_move;
             self.current = self.sticks;
+            self.update_fib_base();
             self.limit = 2 * self.last_move;
             self.update_fib_base();
             println!("I pick {} sticks !", self.last_move);
