@@ -41,9 +41,8 @@ fn main() {
 
 fn my_move(mut game: &mut Game) {
     while 3 * (game.current - game.fib_base) >= game.current {
-        let gap = game.current - game.fib_base;
-        game.current = gap;
-        update_fib_base(&mut game, gap);
+        game.current = game.current - game.fib_base;
+        update_fib_base(&mut game);
         println!("fib_base:{}", game.fib_base);
     }
 
@@ -101,9 +100,9 @@ fn read_number() -> u32 {
     input
 }
 
-fn update_fib_base(game: &mut Game, sticks: u32) {
+fn update_fib_base(game: &mut Game) {
     for f in game.fibonacci {
-        if f < &sticks {
+        if f < &game.current {
             game.fib_base = *f;
         } else {
             break;
