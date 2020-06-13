@@ -55,6 +55,7 @@ impl Game {
     }
 
     fn my_move(&mut self) {
+        println!("{:?}", self);
         if self.limit >= self.sticks {
             self.last_move = self.sticks;
             self.sticks = 0;
@@ -66,17 +67,18 @@ impl Game {
             self.sticks -= self.last_move;
             self.current = match self.stack.pop() {
                 Some(e) => e,
-                None => exit(0),
+                None => self.sticks,
             };
             self.limit = 2 * self.last_move;
-            self.update_fib_base();
             println!("I pick {} sticks !", self.last_move);
             return;
         }
         self.update_fib_base();
-        while 3 * (self.current - self.fib_base) >= self.current {
-            self.stack.push(self.current);
+        while (3 * (self.current - self.fib_base)) >= self.current
+            && ((self.current - self.fib_base) > self.limit)
+        {
             self.current = self.current - self.fib_base;
+            self.stack.push(self.current);
             self.update_fib_base();
         }
         self.last_move = self.current - self.fib_base;
