@@ -33,7 +33,9 @@ fn main() {
         println!("I play first.");
         my_move(&mut game);
     }
+    println!("{:?}", game);
     while game.sticks > 0 {
+        println!("{:?}", game);
         your_move(&mut game);
         my_move(&mut game);
     }
@@ -43,21 +45,30 @@ fn my_move(mut game: &mut Game) {
     while 3 * (game.current - game.fib_base) >= game.current {
         game.current = game.current - game.fib_base;
         update_fib_base(&mut game);
-        println!("fib_base:{}", game.fib_base);
     }
 
-    game.last_move = game.sticks - game.fib_base;
+    game.last_move = game.current - game.fib_base;
+    game.current -= game.last_move;
     game.sticks -= game.last_move;
     game.limit = 2 * game.last_move;
     if game.current == 0 {
         game.current = game.sticks;
     }
-    println!("{:?}", game);
-    exit(0);
+    println!("I picked {}; {} sticks left.", game.last_move, game.sticks);
 }
 
 fn your_move(game: &mut Game) {
-    game.sticks;
+    println!(
+        "You can pick between 1 and {} sticks; {} sticks left.",
+        game.limit, game.sticks
+    );
+    game.last_move = read_number();
+    game.sticks -= game.last_move;
+    game.current -= game.last_move;
+    println!(
+        "You picked {}; {} sticks left.",
+        game.last_move, game.sticks
+    );
 }
 
 fn gen_fibs_upto(game_size: u32) -> Vec<u32> {
