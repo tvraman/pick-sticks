@@ -1,16 +1,16 @@
 use std::process::exit;
 #[derive(Debug)]
-struct Game<'a> {
-    current: u32,
-    sticks: u32,
-    limit: u32,
-    fib_base: u32,
-    last_move: u32,
-    fibonacci: &'a Vec<u32>,
+pub struct Game<'a> {
+    pub current: u32,
+    pub sticks: u32,
+    pub limit: u32,
+    pub fib_base: u32,
+    pub last_move: u32,
+    pub fibonacci: &'a Vec<u32>,
 }
 
-impl Game {
-    fn my_move(&mut self) {
+impl Game<'_> {
+    pub fn my_move(&mut self) {
         if self.limit >= self.sticks {
             self.last_move = self.sticks;
             self.sticks = 0;
@@ -28,7 +28,7 @@ impl Game {
         println!("{:?}", self);
         while 3 * (self.current - self.fib_base) >= self.current {
             self.current = self.current - self.fib_base;
-            update_fib_base(&mut self);
+            self.update_fib_base();
         }
 
         self.last_move = self.current - self.fib_base;
@@ -42,12 +42,12 @@ impl Game {
         println!("{:?}", self);
     }
 
-    fn your_move(&mut self) {
+    pub fn your_move(&mut self) {
         println!(
             "You can pick between 1 and {} sticks; {} sticks left.",
             self.limit, self.sticks
         );
-        self.last_move = self::read_number();
+        self.last_move = super::read_number();
         self.sticks -= self.last_move;
         self.current -= self.last_move;
         self.limit = 2 * self.last_move;
@@ -55,7 +55,7 @@ impl Game {
             "You picked {}; {} sticks left.",
             self.last_move, self.sticks
         );
-        println!("{:?}", game);
+        println!("{:?}", self);
     }
 
     fn update_fib_base(&mut self) {
