@@ -51,6 +51,7 @@ impl Game {
             self.my_move();
         }
     }
+
     pub fn my_move(&mut self) {
         if self.limit >= self.sticks {
             self.last_move = self.sticks;
