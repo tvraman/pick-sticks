@@ -22,8 +22,8 @@ fn read_number() -> u32 {
     let input: u32 = match input.trim().parse() {
         Ok(num) => num,
         Err(e) => {
-            println!("{}: Please enter  a  valid number", e);
-            0
+            eprintln!("{}: Please enter  a  valid number", e);
+            exit(0);
         }
     };
     input
