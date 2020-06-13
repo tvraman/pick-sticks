@@ -1,12 +1,12 @@
 use std::process::exit;
 #[derive(Debug)]
 pub struct Game {
-    pub current: u32,
-    pub sticks: u32,
-    pub limit: u32,
-    pub fib_base: u32,
-    pub last_move: u32,
-    pub fibonacci: Vec<u32>,
+    current: u32,
+    sticks: u32,
+    limit: u32,
+    fib_base: u32,
+    last_move: u32,
+    fibonacci: Vec<u32>,
 }
 
 fn gen_fibs_upto(game_size: u32) -> Vec<u32> {
