@@ -10,58 +10,58 @@ struct Game<'a> {
 }
 
 impl Game {
-    fn my_move(mut game: &mut Game) {
-        if game.limit >= game.sticks {
-            game.last_move = game.sticks;
-            game.sticks = 0;
-            println!("I pick {} sticks and win!", game.last_move);
+    fn my_move(&mut self) {
+        if self.limit >= self.sticks {
+            self.last_move = self.sticks;
+            self.sticks = 0;
+            println!("I pick {} sticks and win!", self.last_move);
             exit(0);
         }
-        if game.limit >= game.current {
-            game.last_move = game.current;
-            game.sticks -= game.last_move;
-            game.current = game.sticks;
-            game.limit = 2 * game.last_move;
-            println!("I pick {} sticks !", game.last_move);
+        if self.limit >= self.current {
+            self.last_move = self.current;
+            self.sticks -= self.last_move;
+            self.current = self.sticks;
+            self.limit = 2 * self.last_move;
+            println!("I pick {} sticks !", self.last_move);
             return;
         }
-        println!("{:?}", game);
-        while 3 * (game.current - game.fib_base) >= game.current {
-            game.current = game.current - game.fib_base;
-            update_fib_base(&mut game);
+        println!("{:?}", self);
+        while 3 * (self.current - self.fib_base) >= self.current {
+            self.current = self.current - self.fib_base;
+            update_fib_base(&mut self);
         }
 
-        game.last_move = game.current - game.fib_base;
-        game.current -= game.last_move;
-        game.sticks -= game.last_move;
-        game.limit = 2 * game.last_move;
-        if game.current == 0 {
-            game.current = game.sticks;
+        self.last_move = self.current - self.fib_base;
+        self.current -= self.last_move;
+        self.sticks -= self.last_move;
+        self.limit = 2 * self.last_move;
+        if self.current == 0 {
+            self.current = self.sticks;
         }
-        println!("I picked {}; {} sticks left.", game.last_move, game.sticks);
-        println!("{:?}", game);
+        println!("I picked {}; {} sticks left.", self.last_move, self.sticks);
+        println!("{:?}", self);
     }
 
-    fn your_move(game: &mut Game) {
+    fn your_move(&mut self) {
         println!(
             "You can pick between 1 and {} sticks; {} sticks left.",
-            game.limit, game.sticks
+            self.limit, self.sticks
         );
-        game.last_move = read_number();
-        game.sticks -= game.last_move;
-        game.current -= game.last_move;
-        game.limit = 2 * game.last_move;
+        self.last_move = self::read_number();
+        self.sticks -= self.last_move;
+        self.current -= self.last_move;
+        self.limit = 2 * self.last_move;
         println!(
             "You picked {}; {} sticks left.",
-            game.last_move, game.sticks
+            self.last_move, self.sticks
         );
         println!("{:?}", game);
     }
 
-    fn update_fib_base(mut game: &mut Game) {
-        for f in game.fibonacci {
-            if *f < game.current {
-                game.fib_base = *f;
+    fn update_fib_base(&mut self) {
+        for f in self.fibonacci {
+            if *f < self.current {
+                self.fib_base = *f;
             } else {
                 break;
             }
