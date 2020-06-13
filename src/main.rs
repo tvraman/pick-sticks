@@ -52,10 +52,9 @@ fn my_move(mut game: &mut Game) {
         game.current = game.sticks;
         game.limit = 2 * game.last_move;
         println!("I pick {} sticks !", game.last_move);
-        game.sticks -= game.last_move;
-        game.current -= game.last_move;
         return;
     }
+    println!("{:?}", game);
     while 3 * (game.current - game.fib_base) >= game.current {
         game.current = game.current - game.fib_base;
         update_fib_base(&mut game);
@@ -127,7 +126,7 @@ fn read_number() -> u32 {
     input
 }
 
-fn update_fib_base(game: &mut Game) {
+fn update_fib_base(mut game: &mut Game) {
     for f in game.fibonacci {
         if f < &game.current {
             game.fib_base = *f;
