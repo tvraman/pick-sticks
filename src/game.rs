@@ -52,7 +52,7 @@ impl Game {
         }
     }
 
-    pub fn my_move(&mut self) {
+    fn my_move(&mut self) {
         if self.limit >= self.sticks {
             self.last_move = self.sticks;
             self.sticks = 0;
@@ -64,6 +64,7 @@ impl Game {
             self.sticks -= self.last_move;
             self.current = self.sticks;
             self.limit = 2 * self.last_move;
+            self.update_fib_base();
             println!("I pick {} sticks !", self.last_move);
             return;
         }
@@ -84,7 +85,7 @@ impl Game {
         println!("{:?}", self);
     }
 
-    pub fn your_move(&mut self) {
+    fn your_move(&mut self) {
         println!(
             "You can pick between 1 and {} sticks; {} sticks left.",
             self.limit, self.sticks
@@ -93,6 +94,7 @@ impl Game {
         self.sticks -= self.last_move;
         self.current -= self.last_move;
         self.limit = 2 * self.last_move;
+        self.update_fib_base();
         println!(
             "You picked {}; {} sticks left.",
             self.last_move, self.sticks
