@@ -85,7 +85,7 @@ impl Game {
             self.current = self.sticks;
         }
         println!("I picked {}; {} sticks left.", self.last_move, self.sticks);
-        println!("{:?}", self);
+        dbg!(println!("{:?}", self));
     }
 
     fn your_move(&mut self) {
@@ -102,7 +102,7 @@ impl Game {
             "You picked {}; {} sticks left.",
             self.last_move, self.sticks
         );
-        println!("{:?}", self);
+        dbg!(println!("{:?}", self));
     }
 
     fn update_fib_base(&mut self) {
