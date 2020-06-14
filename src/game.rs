@@ -30,8 +30,8 @@ fn fib_p(fibs: &Vec<u16>, f: u16) -> bool {
     false
 }
 
-fn read_number() -> u16 {
-    println!("Pick number of sticks:");
+fn read_number(prompt: &str) -> u16 {
+    println!("{}", prompt);
     let mut input = String::new();
     io::stdin()
         .read_line(&mut input)
@@ -50,7 +50,7 @@ impl Game {
     // Build a new game by initializing game state and needed data:
 
     pub fn build() -> Game {
-        let size = read_number();
+        let size = read_number("How many sticks would you like to play with?");
         if size <= 2 {
             println!("Game size of 2  or less is too small");
             exit(1);
@@ -88,21 +88,12 @@ impl Game {
             println!("I pick {} sticks and win!", self.last_move);
             exit(0);
         }
-        if self.current <= 2 {
-            self.last_move = 2;
-            self.sticks -= self.last_move;
-            self.limit = 2 * self.last_move;
-            println!("I pick {} sticks", self.last_move);
-            return;
-        }
-        if self.current == 0 {
+        if self.current <= self.limit {
+            self.last_move = self.current;
             self.current = match self.stack.pop() {
                 Some(num) => num,
                 None => self.sticks,
             };
-        }
-        if self.current <= self.limit {
-            self.last_move = self.current;
             self.limit = 2 * self.last_move;
             self.sticks -= self.last_move;
             println!("I picked {} sticks", self.last_move);
@@ -128,7 +119,7 @@ impl Game {
             "You can pick between 1 and {} sticks; {} sticks left.",
             self.limit, self.sticks
         );
-        self.last_move = read_number();
+        self.last_move = read_number("How many sticks do you pick?");
         self.sticks -= self.last_move;
         self.limit = 2 * self.last_move;
         self.update_fib_base();
