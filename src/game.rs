@@ -103,7 +103,7 @@ impl Game {
         if self.limit >= self.sticks {
             self.last_move = self.sticks;
             self.sticks = 0;
-            println!("I picked {} and won!", self.last_move);
+            println!("I picked {} and win!", self.last_move);
             exit(0);
         }
         if self.current <= self.limit {
