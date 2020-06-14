@@ -1,5 +1,4 @@
-use std::io;
-use std::process::exit;
+use std::{io, process::exit};
 
 #[derive(Debug)]
 pub struct Game {
