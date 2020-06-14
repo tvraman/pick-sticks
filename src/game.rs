@@ -47,6 +47,8 @@ fn read_number() -> u16 {
 }
 
 impl Game {
+    // Build a new game by initializing game state and needed data:
+
     pub fn build() -> Game {
         let size = read_number();
         if size <= 2 {
@@ -56,12 +58,12 @@ impl Game {
         let fibs = gen_fibs_upto(size);
         Game {
             sticks: size,
-            fib_base: fibs[fibs.len() - 2],
             current: size,
             limit: size - 1,
+            fib_base: fibs[fibs.len() - 2],
+            last_move: 0,
             stack: Vec::new(),
             fibonacci: fibs,
-            last_move: 0,
         }
     }
 
