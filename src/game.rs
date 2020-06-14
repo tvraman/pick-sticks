@@ -78,6 +78,27 @@ impl Game {
         }
     }
 
+    // Update game state  after playing one turn:
+
+    fn update(&mut self, pick: u16) {
+        if pick > self.limit {
+            println!("Illegal: {} is bigger than {}", pick, self.limit);
+            exit(0);
+        }
+        self.last_move = pick;
+        self.sticks -= pick;
+        self.limit = 2 * pick;
+        self.current -= pick;
+        if self.current == 0 {
+            self.current = match self.stack.pop() {
+                Some(num) => num,
+                None => self.sticks,
+            };
+        }
+        self.update_fib_base();
+        println!("{:?}", self);
+    }
+
     fn my_move(&mut self) {
         if self.stack.is_empty() {
             self.decompose();
@@ -89,14 +110,7 @@ impl Game {
             exit(0);
         }
         if self.current <= self.limit {
-            self.last_move = self.current;
-            self.current = match self.stack.pop() {
-                Some(num) => num,
-                None => self.sticks,
-            };
-            self.limit = 2 * self.last_move;
-            self.sticks -= self.last_move;
-            println!("I picked {} sticks", self.last_move);
+            self.update(self.current);
             return;
         }
         let mut next_move = self.current - self.fib_base;
@@ -105,12 +119,8 @@ impl Game {
             self.update_fib_base();
             next_move = self.current - self.fib_base;
         }
-        println!("{:?}", self);
-        self.last_move = next_move;
-        self.current -= self.last_move;
-        self.sticks -= self.last_move;
-        self.limit = 2 * self.last_move;
-        println!("I picked {}; {} sticks left.", self.last_move, self.sticks);
+
+        self.update(next_move);
         println!("{:?}", self);
     }
 
@@ -119,10 +129,7 @@ impl Game {
             "You can pick between 1 and {} sticks; {} sticks left.",
             self.limit, self.sticks
         );
-        self.last_move = read_number("How many sticks do you pick?");
-        self.sticks -= self.last_move;
-        self.limit = 2 * self.last_move;
-        self.update_fib_base();
+        self.update(read_number("How many sticks do you pick?"));
         println!(
             "You picked {}; {} sticks left.",
             self.last_move, self.sticks
