@@ -120,7 +120,7 @@ impl Game {
             next_move = self.current - self.fib_base;
         }
         self.update(next_move);
-        println!("{:?// }", self);
+        //println!("{:? }", self);
     }
 
     fn your_move(&mut self) {
