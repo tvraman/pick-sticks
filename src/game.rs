@@ -32,6 +32,7 @@ fn fib_p(fibs: &Vec<u16>, f: u16) -> bool {
 }
 
 fn read_number() -> u16 {
+    println!("How many sticks would you like to play with?");
     let mut input = String::new();
     io::stdin()
         .read_line(&mut input)
