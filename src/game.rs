@@ -81,8 +81,8 @@ impl Game {
     // Update game state  after playing one turn:
 
     fn update(&mut self, pick: u16) {
-        if pick > self.limit {
-            println!("Illegal: {} is bigger than {}", pick, self.limit);
+        if pick > self.limit || pick == 0 {
+            println!("Illegal:  {}", pick);
             exit(0);
         }
         self.last_move = pick;
