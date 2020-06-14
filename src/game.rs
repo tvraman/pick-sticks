@@ -95,7 +95,7 @@ impl Game {
             };
         }
         self.update_fib_base();
-        println!("{:?}", self);
+        // println!("{:?}", self);
         println!("Move: {}", pick);
     }
 
@@ -120,7 +120,7 @@ impl Game {
             next_move = self.current - self.fib_base;
         }
         self.update(next_move);
-        println!("{:?}", self);
+        println!("{:?// }", self);
     }
 
     fn your_move(&mut self) {
@@ -133,7 +133,7 @@ impl Game {
             "After picking {}, there are {} sticks left.",
             self.last_move, self.sticks
         );
-        println!("{:?}", self);
+        // println!("{:?}", self);
     }
     // fib_base is the  largest Fibonacci number less than current.
 
@@ -157,6 +157,6 @@ impl Game {
             self.update_fib_base();
             next_move = self.current - self.fib_base;
         }
-        println!("{:?}", self);
+        // println!("{:?}", self);
     }
 }
