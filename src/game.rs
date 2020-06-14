@@ -81,6 +81,7 @@ impl Game {
 
     fn update(&mut self, pick: u16) {
         if pick > self.limit || pick == 0 {
+            println!("Invalid move: {}", pick);
             exit(0);
         }
         self.last_move = pick;
@@ -95,6 +96,7 @@ impl Game {
         }
         self.update_fib_base();
         println!("{:?}", self);
+        println!("Move: {}", pick);
     }
 
     fn my_move(&mut self) {
