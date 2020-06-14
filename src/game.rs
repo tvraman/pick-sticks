@@ -82,6 +82,7 @@ impl Game {
     fn update(&mut self, pick: u16) {
         if pick > self.limit || pick == 0 {
             println!("Invalid move: {}", pick);
+            println!("{:?}", self);
             exit(0);
         }
         self.last_move = pick;
@@ -106,18 +107,21 @@ impl Game {
             println!("I picked {} and win!", self.last_move);
             exit(0);
         }
-        if self.current <= self.limit {
-            self.update(self.current);
-            return;
-        }
         if self.stack.is_empty() {
             self.decompose();
+        }
+        if (self.current > 0) && (self.current <= self.limit) {
+            self.update(self.current);
+            return;
         }
         let mut next_move = self.current - self.fib_base;
         while ((3 * next_move) >= self.current) || (next_move > self.limit) {
             self.current -= next_move;
             self.update_fib_base();
             next_move = self.current - self.fib_base;
+        }
+        if next_move == 0 {
+            next_move = 1;
         }
         self.update(next_move);
         //println!("{:? }", self);
@@ -138,6 +142,9 @@ impl Game {
     // fib_base is the  largest Fibonacci number less than current.
 
     fn update_fib_base(&mut self) {
+        if self.current == 1 {
+            return;
+        }
         for f in &self.fibonacci {
             if f < &self.current {
                 self.fib_base = *f;
