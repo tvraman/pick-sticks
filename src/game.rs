@@ -153,7 +153,7 @@ impl Game {
     // These are pushed on to game.stack.
 
     pub fn decompose(&mut self) {
-        while 2 * self.current > self.fib_base {
+        while 2 * self.current >= self.fib_base {
             self.stack.push(self.fib_base);
             self.current = self.current - self.fib_base;
             self.update_fib_base();
