@@ -46,6 +46,7 @@ impl Game {
     pub fn play(&mut self) {
         if !fib_p(&self.fibonacci, self.sticks) {
             println!("I play first.");
+            self.decompose();
             self.my_move();
         }
         while self.sticks > 0 {
@@ -55,17 +56,26 @@ impl Game {
     }
 
     fn my_move(&mut self) {
-        println!("{:?}", self);
         if self.limit >= self.sticks {
             self.last_move = self.sticks;
             self.sticks = 0;
             println!("I pick {} sticks and win!", self.last_move);
             exit(0);
         }
+        self.current = match self.stack.pop() {
+            Some(num) => num,
+            None => exit(0),
+        };
+        if self.current <= self.limit {
+            self.last_move = self.current;
+            self.limit = 2 * self.last_move;
+            self.sticks -= self.last_move;
+            println!("I picked {} sticks", self.last_move);
+            return;
+        }
         self.update_fib_base();
         let mut next_move = self.current - self.fib_base;
         while ((3 * next_move) >= self.current) || (next_move > self.limit) {
-            self.stack.push(self.current);
             self.current -= next_move;
             self.update_fib_base();
             next_move = self.current - self.fib_base;
@@ -86,7 +96,6 @@ impl Game {
         );
         self.last_move = super::read_number();
         self.sticks -= self.last_move;
-        self.current -= self.last_move;
         self.limit = 2 * self.last_move;
         self.update_fib_base();
         println!(
@@ -110,13 +119,11 @@ impl Game {
     // These are pushed on to game.stack.
 
     pub fn decompose(&mut self) {
-        println!("{:?}", self);
-        self.current = self.current - self.fib_base;
-        while (2 * self.current) >= (self.fib_base) {
+        while 2 * self.current > self.fib_base {
+            self.stack.push(self.fib_base);
+            self.current = self.current - self.fib_base;
             self.update_fib_base();
-            self.decompose();
         }
-        self.stack.push(self.current);
-        println!("Done: {:?}", self);
+        println!("{:?}", self.stack);
     }
 }
