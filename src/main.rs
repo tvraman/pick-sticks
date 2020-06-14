@@ -1,4 +1,3 @@
-use std::{io, process::exit};
 mod game;
 use crate::game::Game;
 
