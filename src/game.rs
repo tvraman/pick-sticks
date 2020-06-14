@@ -38,8 +38,7 @@ fn read_number(prompt: &str) -> u16 {
         .expect("Failed to read line");
     let input: u16 = match input.trim().parse() {
         Ok(num) => num,
-        Err(e) => {
-            eprintln!("{}: Please enter  a  valid number", e);
+        Err(_) => {
             exit(0);
         }
     };
@@ -82,7 +81,6 @@ impl Game {
 
     fn update(&mut self, pick: u16) {
         if pick > self.limit || pick == 0 {
-            println!("Illegal:  {}", pick);
             exit(0);
         }
         self.last_move = pick;
@@ -100,18 +98,18 @@ impl Game {
     }
 
     fn my_move(&mut self) {
-        if self.stack.is_empty() {
-            self.decompose();
-        }
         if self.limit >= self.sticks {
             self.last_move = self.sticks;
             self.sticks = 0;
-            println!("I pick {} sticks and win!", self.last_move);
+            println!("I picked {} and won!", self.last_move);
             exit(0);
         }
         if self.current <= self.limit {
             self.update(self.current);
             return;
+        }
+        if self.stack.is_empty() {
+            self.decompose();
         }
         let mut next_move = self.current - self.fib_base;
         while ((3 * next_move) >= self.current) || (next_move > self.limit) {
@@ -119,19 +117,18 @@ impl Game {
             self.update_fib_base();
             next_move = self.current - self.fib_base;
         }
-
         self.update(next_move);
         println!("{:?}", self);
     }
 
     fn your_move(&mut self) {
         println!(
-            "You can pick between 1 and {} sticks; {} sticks left.",
+            "You can pick between 1 and {}, {} sticks left.",
             self.limit, self.sticks
         );
         self.update(read_number("How many sticks do you pick?"));
         println!(
-            "You picked {}; {} sticks left.",
+            "After picking {}, there are {} sticks left.",
             self.last_move, self.sticks
         );
         println!("{:?}", self);
@@ -150,11 +147,14 @@ impl Game {
     // Decompose the game into smaller games.
     // These are pushed on to game.stack.
 
-    pub fn decompose(&mut self) {
-        while 2 * self.current >= self.fib_base {
+    fn decompose(&mut self) {
+        eprintln!("decompose: {:?}", self);
+        let mut next_move = self.current - self.fib_base;
+        while ((3 * next_move) >= self.current) && (self.current >= 2) {
             self.stack.push(self.fib_base);
             self.current = self.current - self.fib_base;
             self.update_fib_base();
+            next_move = self.current - self.fib_base;
         }
         println!("{:?}", self);
     }
