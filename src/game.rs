@@ -31,7 +31,7 @@ fn fib_p(fibs: &Vec<u16>, f: u16) -> bool {
 }
 
 fn read_number() -> u16 {
-    println!("How many sticks would you like to play with?");
+    println!("Pick number of sticks:");
     let mut input = String::new();
     io::stdin()
         .read_line(&mut input)
@@ -70,7 +70,6 @@ impl Game {
     pub fn play(&mut self) {
         if !fib_p(&self.fibonacci, self.sticks) {
             println!("I play first.");
-            self.decompose();
             self.my_move();
         }
         while self.sticks > 0 {
@@ -80,16 +79,26 @@ impl Game {
     }
 
     fn my_move(&mut self) {
+        if self.stack.is_empty() {
+            self.decompose();
+        }
         if self.limit >= self.sticks {
             self.last_move = self.sticks;
             self.sticks = 0;
             println!("I pick {} sticks and win!", self.last_move);
             exit(0);
         }
+        if self.current <= 2 {
+            self.last_move = 2;
+            self.sticks -= self.last_move;
+            self.limit = 2 * self.last_move;
+            println!("I pick {} sticks", self.last_move);
+            return;
+        }
         if self.current == 0 {
             self.current = match self.stack.pop() {
                 Some(num) => num,
-                None => exit(0),
+                None => self.sticks,
             };
         }
         if self.current <= self.limit {
@@ -99,7 +108,6 @@ impl Game {
             println!("I picked {} sticks", self.last_move);
             return;
         }
-        self.update_fib_base();
         let mut next_move = self.current - self.fib_base;
         while ((3 * next_move) >= self.current) || (next_move > self.limit) {
             self.current -= next_move;
