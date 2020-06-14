@@ -35,7 +35,7 @@ impl Game {
         Game {
             sticks: size,
             fib_base: fibs[fibs.len() - 2],
-            current: size - fibs[fibs.len() - 2],
+            current: size,
             limit: size - 1,
             stack: Vec::new(),
             fibonacci: fibs,
@@ -105,5 +105,18 @@ impl Game {
                 break;
             }
         }
+    }
+    // Decompose the game into smaller games.
+    // These are pushed on to game.stack.
+
+    pub fn decompose(&mut self) {
+        println!("{:?}", self);
+        self.current = self.current - self.fib_base;
+        while (2 * self.current) >= (self.fib_base) {
+            self.update_fib_base();
+            self.decompose();
+        }
+        self.stack.push(self.current);
+        println!("Done: {:?}", self);
     }
 }
