@@ -13,7 +13,7 @@ pub struct Game {
 fn gen_fibs_upto(game_size: u16) -> Vec<u16> {
     let mut fibs = vec![1, 1, 2];
     let mut size = fibs.len();
-    while fibs[size - 1] <= game_size {
+    while fibs[size - 1] < game_size {
         fibs.push(fibs[size - 1] + fibs[size - 2]);
         size = fibs.len();
     }
@@ -62,10 +62,12 @@ impl Game {
             println!("I pick {} sticks and win!", self.last_move);
             exit(0);
         }
-        self.current = match self.stack.pop() {
-            Some(num) => num,
-            None => exit(0),
-        };
+        if self.current == 0 {
+            self.current = match self.stack.pop() {
+                Some(num) => num,
+                None => exit(0),
+            };
+        }
         if self.current <= self.limit {
             self.last_move = self.current;
             self.limit = 2 * self.last_move;
@@ -108,7 +110,7 @@ impl Game {
 
     fn update_fib_base(&mut self) {
         for f in &self.fibonacci {
-            if f <= &self.current {
+            if f < &self.current {
                 self.fib_base = *f;
             } else {
                 break;
@@ -124,6 +126,6 @@ impl Game {
             self.current = self.current - self.fib_base;
             self.update_fib_base();
         }
-        println!("{:?}", self.stack);
+        println!("{:?}", self);
     }
 }
