@@ -148,7 +148,6 @@ impl Game {
     // These are pushed on to game.stack.
 
     fn decompose(&mut self) {
-        eprintln!("decompose: {:?}", self);
         let mut next_move = self.current - self.fib_base;
         while ((3 * next_move) >= self.current) && (self.current >= 2) {
             self.stack.push(self.fib_base);
