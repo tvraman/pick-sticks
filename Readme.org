@@ -1,0 +1,27 @@
+* Overview 
+
+This directory  contains an implementation of the /Pick Up Sticks/
+game  described in my paper
+[[http://emacspeak.sourceforge.net/raman/publications/thinking-of-math/thinking-of-math.html][Thinking
+Of Mathematics (Section 5)]].
+
+It's an interesting experience writing it in Rust as I learn the
+language. The original implementation described in my paper was in
+Fortran-77, and consisted of one single function. Though that style of
+programming would be frowned upon today and is clearly not advisable
+for programming in the large, it's interesting to observe that a more
+structured implementation as seen in this Rust implementation requires a lot more thought.
+
+#+options: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline
+#+options: author:t broken-links:nil c:nil creator:nil
+#+options: d:(not "LOGBOOK") date:t e:t email:nil f:t inline:t num:t
+#+options: p:nil pri:nil prop:nil stat:t tags:t tasks:t tex:t
+#+options: timestamp:t title:t toc:nil todo:t |:t
+#+title: The Pick-Up Sticks Game
+#+date: <2020-06-14 Sun>
+#+author: T.V Raman
+#+email: raman@google.com
+#+language: en
+#+select_tags: export
+#+exclude_tags: noexport
+#+creator: Emacs 28.0.50 (Org mode 9.3.7)
