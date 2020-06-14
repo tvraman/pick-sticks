@@ -1,4 +1,6 @@
+use std::io;
 use std::process::exit;
+
 #[derive(Debug)]
 pub struct Game {
     current: u16,
@@ -11,7 +13,7 @@ pub struct Game {
 }
 
 fn gen_fibs_upto(game_size: u16) -> Vec<u16> {
-    let mut fibs = vec![1, 1, 2];
+    let mut fibs = vec![1, 2];
     let mut size = fibs.len();
     while fibs[size - 1] < game_size {
         fibs.push(fibs[size - 1] + fibs[size - 2]);
@@ -29,8 +31,28 @@ fn fib_p(fibs: &Vec<u16>, f: u16) -> bool {
     false
 }
 
+fn read_number() -> u16 {
+    let mut input = String::new();
+    io::stdin()
+        .read_line(&mut input)
+        .expect("Failed to read line");
+    let input: u16 = match input.trim().parse() {
+        Ok(num) => num,
+        Err(e) => {
+            eprintln!("{}: Please enter  a  valid number", e);
+            exit(0);
+        }
+    };
+    input
+}
+
 impl Game {
-    pub fn build(size: u16) -> Game {
+    pub fn build() -> Game {
+        let size = read_number();
+        if size <= 2 {
+            println!("Game size of 2  or less is too small");
+            exit(1);
+        }
         let fibs = gen_fibs_upto(size);
         Game {
             sticks: size,
@@ -96,7 +118,7 @@ impl Game {
             "You can pick between 1 and {} sticks; {} sticks left.",
             self.limit, self.sticks
         );
-        self.last_move = super::read_number();
+        self.last_move = read_number();
         self.sticks -= self.last_move;
         self.limit = 2 * self.last_move;
         self.update_fib_base();
