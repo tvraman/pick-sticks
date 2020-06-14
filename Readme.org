@@ -6,11 +6,12 @@ game  described in my paper
 Of Mathematics (Section 5)]].
 
 It's an interesting experience writing it in Rust as I learn the
-language. The original implementation described in my paper was in
-Fortran-77, and consisted of one single function. Though that style of
-programming would be frowned upon today and is clearly not advisable
-for programming in the large, it's interesting to observe that a more
-structured implementation as seen in this Rust implementation requires a lot more thought.
+language. The original implementation described in my paper was
+written in 1987 in Fortran-77, and consisted of one single
+function. Though that style of programming would be frowned upon today
+and is clearly not advisable for programming in the large, it's
+interesting to observe that a more structured implementation as seen
+in this Rust implementation qrequires a lot more thought.
 
 #+options: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline
 #+options: author:t broken-links:nil c:nil creator:nil
