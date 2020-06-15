@@ -122,6 +122,7 @@ impl Game {
         }
         let mut next_move = self.current - self.fib_base;
         while ((3 * next_move) >= self.current) || (next_move > self.limit) {
+            // Need to play a smaller game first.
             self.current = next_move;
             self.update_fib_base();
             next_move = self.current - self.fib_base;
