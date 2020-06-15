@@ -117,6 +117,9 @@ impl Game {
     }
 
     fn my_move(&mut self) {
+        if self.sticks == 0 {
+            return;
+        }
         if self.limit >= self.sticks {
             self.finish();
         }
