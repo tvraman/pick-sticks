@@ -59,15 +59,14 @@ impl Game {
             exit(1);
         }
         let fibs = gen_fibs_upto(size);
-        let mut g: Game = Game {
+        Game {
             sticks: size,
             current: size,
             limit: size - 1,
             fib_base: fibs[fibs.len() - 2],
             last_move: 0,
             fibonacci: fibs,
-        };
-        g
+        }
     }
 
     pub fn play(&mut self) {
@@ -110,31 +109,34 @@ impl Game {
 
     fn my_move(&mut self) {
         if self.sticks == 0 {
+            // we lost
             return;
         }
         if self.limit >= self.sticks {
+            // we won
             self.finish();
         }
         if (self.current > 0) && (self.current <= self.limit) {
+            // we
+            // we won the sub-game
             self.update(self.current);
             return;
-        } else {
-            let mut next_move = self.current - self.fib_base;
-            while ((3 * next_move) >= self.current) || (next_move > self.limit) {
-                if self.current == next_move {
-                    // we are going too far:
-                    break;
-                }
-                self.current -= next_move;
-                self.update_fib_base();
-                next_move = self.current - self.fib_base;
-                if next_move == 0 {
-                    // we went too far:
-                    next_move = self.current;
-                }
-            }
-            self.update(next_move);
         }
+        let mut next_move = self.current - self.fib_base;
+        while ((3 * next_move) >= self.current) || (next_move > self.limit) {
+            if self.current == next_move {
+                // we are going too far:
+                break;
+            }
+            self.current -= next_move;
+            self.update_fib_base();
+            next_move = self.current - self.fib_base;
+            if next_move == 0 {
+                // we went too far:
+                next_move = self.current;
+            }
+        }
+        self.update(next_move);
     }
 
     fn your_move(&mut self) {
@@ -155,7 +157,7 @@ impl Game {
     // fib_base is the  largest Fibonacci number less than current.
 
     fn update_fib_base(&mut self) {
-        if self.current <= 2 {
+        if self.current < 2 {
             return;
         }
         for f in &self.fibonacci {
