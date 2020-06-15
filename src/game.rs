@@ -156,9 +156,9 @@ impl Game {
         if self.current < 2 {
             return;
         }
-        for f in &self.fibonacci {
-            if f < &self.current {
-                self.fib_base = *f;
+        for &f in &self.fibonacci {
+            if f < self.current {
+                self.fib_base = f;
             } else {
                 break;
             }
