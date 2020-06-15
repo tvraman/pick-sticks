@@ -89,7 +89,7 @@ impl Game {
     // Update game state  after playing one turn:
 
     fn update(&mut self, pick: u16) {
-        if pick > self.limit || pick == 0 {
+        if pick > self.limit {
             println!("Invalid move: {}", pick);
             println!("{:?}", self);
             exit(0);
@@ -120,19 +120,23 @@ impl Game {
         if self.limit >= self.sticks {
             self.finish();
         }
-
         if (self.current > 0) && (self.current <= self.limit) {
             self.update(self.current);
             return;
         } else {
             let mut next_move = self.current - self.fib_base;
             while ((3 * next_move) >= self.current) || (next_move > self.limit) {
+                if self.current == next_move {
+                    break;
+                }
                 self.current -= next_move;
                 self.update_fib_base();
                 next_move = self.current - self.fib_base;
+                if next_move == 0 {
+                    next_move = self.current;
+                }
             }
             self.update(next_move);
-            //println!("{:? }", self);
         }
     }
 
