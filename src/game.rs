@@ -96,7 +96,6 @@ impl Game {
             self.current = self.sticks;
         }
         self.update_fib_base();
-        // println!("{:?}", self);
         println!("Move: {}", pick);
     }
 
