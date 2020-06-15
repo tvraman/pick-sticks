@@ -117,7 +117,6 @@ impl Game {
             self.finish();
         }
         if (self.current > 0) && (self.current <= self.limit) {
-            // we
             // we won the sub-game
             self.update(self.current);
             return;
