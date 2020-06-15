@@ -1,7 +1,7 @@
 mod game;
-use crate::game::Game;
+use game::Game;
 
 fn main() {
-    println!("Welcome To Pick Up Sticks!");
-    Game::build().play();
+  println!("Welcome To Pick Up Sticks!");
+  Game::build().play();
 }
