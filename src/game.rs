@@ -168,7 +168,4 @@ impl Game {
             }
         }
     }
-
-    // Decompose the game into smaller games.
-    // These are pushed on to self.stack.
 }
