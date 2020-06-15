@@ -23,7 +23,7 @@ fn gen_fibs_upto(game_size: u16) -> Vec<u16> {
 // Predicate to check if f is a Fibonacci number:
 
 fn fib_p(fibs: &[u16], f: u16) -> bool {
-    for &n in fibs.iter() {
+    for &n in fibs {
         if f == n {
             return true;
         }
