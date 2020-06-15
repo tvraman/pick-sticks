@@ -153,7 +153,7 @@ impl Game {
             self.last_move, self.sticks
         );
         if self.sticks == 0 {
-            println!("I win!");
+            println!("You win!");
         }
     }
 
