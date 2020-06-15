@@ -2,12 +2,11 @@ use std::{io, process::exit};
 
 #[derive(Debug)]
 pub struct Game {
-    current: u16,    // sub-game
-    sticks: u16,     //sticks left
-    limit: u16,      // max sticks for current turn
-    fib_base: u16,   // Nearest Fibonacci < current,
-    last_move: u16,  // most recent move
-    stack: Vec<u16>, // Stack of sub-games
+    current: u16,   // sub-game
+    sticks: u16,    //sticks left
+    limit: u16,     // max sticks for current turn
+    fib_base: u16,  // Nearest Fibonacci < current,
+    last_move: u16, // most recent move
     fibonacci: Vec<u16>,
 }
 // Return a vector of Fibonacci numbers     where game_size < fibs[len-1]
@@ -66,12 +65,8 @@ impl Game {
             limit: size - 1,
             fib_base: fibs[fibs.len() - 2],
             last_move: 0,
-            stack: Vec::new(),
             fibonacci: fibs,
         };
-        if !fib_p(&g.fibonacci, g.sticks) {
-            g.decompose();
-        }
         g
     }
 
@@ -99,10 +94,7 @@ impl Game {
         self.limit = 2 * pick;
         self.current -= pick;
         if self.current == 0 {
-            self.current = match self.stack.pop() {
-                Some(num) => num,
-                None => self.sticks,
-            };
+            self.current = self.sticks;
         }
         self.update_fib_base();
         // println!("{:?}", self);
@@ -177,17 +169,4 @@ impl Game {
 
     // Decompose the game into smaller games.
     // These are pushed on to self.stack.
-
-    fn decompose(&mut self) {
-        let mut next_move = self.current - self.fib_base;
-        while ((3 * next_move) >= self.current) && (self.current >= 2) {
-            self.stack.push(self.fib_base);
-            self.current = self.current - self.fib_base;
-            self.update_fib_base();
-            next_move = self.current - self.fib_base;
-        }
-        // reset self.current:
-        self.current = self.sticks;
-        // println!("{:?}", self);
-    }
 }
