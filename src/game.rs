@@ -120,13 +120,22 @@ impl Game {
             self.update(self.current);
             return;
         }
+        // Goal: Push opponent to the closest fibonacci number
         let mut next_move = self.current - self.fib_base;
+        // the above might violate the limit rule,
+        // or allow the opponent to win if the closest Fibonacci number is
+        // "too far away" e.g.,
+        // When playing with 20, picking 7 to push opponent to 13
+        // would let  the opponent win by picking 13 which is less
+        // than 2*7 = 14.
+
         while ((3 * next_move) >= self.current) || (next_move > self.limit) {
             // Need to play a smaller game first.
             self.current = next_move;
             self.update_fib_base();
             next_move = self.current - self.fib_base;
         }
+        // next_move no longer  violates  our  rules
         self.update(next_move);
     }
 
