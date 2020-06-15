@@ -48,6 +48,7 @@ fn read_number(prompt: &str) -> u16 {
     };
     input
 }
+// Implement methods on type Game:
 
 impl Game {
     // Build a new game by initializing game state and needed data:
@@ -104,31 +105,34 @@ impl Game {
         println!("Move: {}", pick);
     }
 
+    fn finish(&mut self) {
+        self.last_move = self.sticks;
+        self.sticks = 0;
+        println!("I picked {} and win!", self.last_move);
+        exit(0);
+    }
+
     fn my_move(&mut self) {
         if self.limit >= self.sticks {
-            self.last_move = self.sticks;
-            self.sticks = 0;
-            println!("I picked {} and win!", self.last_move);
-            exit(0);
+            self.finish();
         }
         if self.stack.is_empty() {
             self.decompose();
         }
+
         if (self.current > 0) && (self.current <= self.limit) {
             self.update(self.current);
             return;
+        } else {
+            let mut next_move = self.current - self.fib_base;
+            while ((3 * next_move) >= self.current) || (next_move > self.limit) {
+                self.current -= next_move;
+                self.update_fib_base();
+                next_move = self.current - self.fib_base;
+            }
+            self.update(next_move);
+            //println!("{:? }", self);
         }
-        let mut next_move = self.current - self.fib_base;
-        while ((3 * next_move) >= self.current) || (next_move > self.limit) {
-            self.current -= next_move;
-            self.update_fib_base();
-            next_move = self.current - self.fib_base;
-        }
-        if next_move == 0 {
-            next_move = 1;
-        }
-        self.update(next_move);
-        //println!("{:? }", self);
     }
 
     fn your_move(&mut self) {
@@ -143,10 +147,11 @@ impl Game {
         );
         // println!("{:?}", self);
     }
+
     // fib_base is the  largest Fibonacci number less than current.
 
     fn update_fib_base(&mut self) {
-        if self.current == 1 {
+        if self.current <= 2 {
             return;
         }
         for f in &self.fibonacci {
@@ -157,8 +162,9 @@ impl Game {
             }
         }
     }
+
     // Decompose the game into smaller games.
-    // These are pushed on to game.stack.
+    // These are pushed on to self.stack.
 
     fn decompose(&mut self) {
         let mut next_move = self.current - self.fib_base;
@@ -168,6 +174,8 @@ impl Game {
             self.update_fib_base();
             next_move = self.current - self.fib_base;
         }
+        // reset self.current:
+        self.current = self.sticks;
         // println!("{:?}", self);
     }
 }
