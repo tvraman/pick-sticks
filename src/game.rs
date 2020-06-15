@@ -60,7 +60,7 @@ impl Game {
             exit(1);
         }
         let fibs = gen_fibs_upto(size);
-        Game {
+        let mut g: Game = Game {
             sticks: size,
             current: size,
             limit: size - 1,
@@ -68,7 +68,11 @@ impl Game {
             last_move: 0,
             stack: Vec::new(),
             fibonacci: fibs,
+        };
+        if !fib_p(g.sticks) {
+            g.decompose();
         }
+        g
     }
 
     pub fn play(&mut self) {
@@ -115,9 +119,6 @@ impl Game {
     fn my_move(&mut self) {
         if self.limit >= self.sticks {
             self.finish();
-        }
-        if self.stack.is_empty() {
-            self.decompose();
         }
 
         if (self.current > 0) && (self.current <= self.limit) {
