@@ -152,7 +152,9 @@ impl Game {
             "After picking {}, there are {} sticks left.",
             self.last_move, self.sticks
         );
-        // println!("{:?}", self);
+        if self.sticks == 0 {
+            println!("I win!");
+        }
     }
 
     // fib_base is the  largest Fibonacci number less than current.
