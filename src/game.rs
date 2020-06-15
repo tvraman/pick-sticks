@@ -35,9 +35,7 @@ fn fib_p(fibs: &[u16], f: u16) -> bool {
 fn read_number(prompt: &str) -> u16 {
     println!("{}", prompt);
     let mut input = String::new();
-    io::stdin()
-        .read_line(&mut input)
-        .expect("Failed to read line");
+    io::stdin().read_line(&mut input).expect("Failed to read line");
     let input: u16 = match input.trim().parse() {
         Ok(num) => num,
         Err(_) => {
