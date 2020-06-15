@@ -148,9 +148,6 @@ impl Game {
     // fib_base is the  largest Fibonacci number less than current.
 
     fn update_fib_base(&mut self) {
-        if self.current < 2 {
-            return;
-        }
         for &f in &self.fibonacci {
             if f < self.current {
                 self.fib_base = f;
