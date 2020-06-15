@@ -123,8 +123,7 @@ impl Game {
         }
         let mut next_move = self.current - self.fib_base;
         while ((3 * next_move) >= self.current) || (next_move > self.limit) {
-            println!("next: {},  {:?}", next_move, self);
-            self.current -= next_move;
+            self.current = next_move;
             self.update_fib_base();
             next_move = self.current - self.fib_base;
             if next_move == 0 {
