@@ -126,11 +126,6 @@ impl Game {
             self.current = next_move;
             self.update_fib_base();
             next_move = self.current - self.fib_base;
-            if next_move == 0 {
-                // we went too far:
-                next_move = self.current;
-                break;
-            }
         }
         self.update(next_move);
     }
