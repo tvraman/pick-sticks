@@ -69,7 +69,7 @@ impl Game {
             stack: Vec::new(),
             fibonacci: fibs,
         };
-        if !fib_p(g.sticks) {
+        if !fib_p(&g.fibonacci, g.sticks) {
             g.decompose();
         }
         g
