@@ -2,14 +2,15 @@ use std::{io, process::exit};
 
 #[derive(Debug)]
 pub struct Game {
-    current: u16,
-    sticks: u16,
-    limit: u16,
-    fib_base: u16,
-    last_move: u16,
-    stack: Vec<u16>,
+    current: u16,    // sub-game
+    sticks: u16,     //sticks left
+    limit: u16,      // max sticks for current turn
+    fib_base: u16,   // Nearest Fibonacci < current,
+    last_move: u16,  // most recent move
+    stack: Vec<u16>, // Stack of sub-games
     fibonacci: Vec<u16>,
 }
+// Return a vector of Fibonacci numbers     where game_size < fibs[len-1]
 
 fn gen_fibs_upto(game_size: u16) -> Vec<u16> {
     let mut fibs = vec![1, 2];
@@ -20,6 +21,7 @@ fn gen_fibs_upto(game_size: u16) -> Vec<u16> {
     }
     fibs
 }
+// Predicate to check if f is a Fibonacci number:
 
 fn fib_p(fibs: &Vec<u16>, f: u16) -> bool {
     for n in fibs {
@@ -29,6 +31,7 @@ fn fib_p(fibs: &Vec<u16>, f: u16) -> bool {
     }
     false
 }
+// Read a number from stdin and return it.
 
 fn read_number(prompt: &str) -> u16 {
     println!("{}", prompt);
@@ -39,6 +42,7 @@ fn read_number(prompt: &str) -> u16 {
     let input: u16 = match input.trim().parse() {
         Ok(num) => num,
         Err(_) => {
+            println!("You didn't enter  a valid number.",);
             exit(0);
         }
     };
