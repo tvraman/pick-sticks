@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2020-06-16 Tue 08:19 -->
+<!-- 2020-06-16 Tue 08:54 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>The Pick-Up Sticks Game</title>
@@ -239,12 +239,34 @@ for the JavaScript code in this tag.
  }
 /*]]>*///-->
 </script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
+
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
+</script>
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
 </head>
 <body>
 <div id="content">
 <h1 class="title">The Pick-Up Sticks Game</h1>
-<div id="outline-container-orgca46896" class="outline-2">
-<h2 id="orgca46896"><span class="section-number-2">1</span> Overview</h2>
+<div id="outline-container-orgad5eb8b" class="outline-2">
+<h2 id="orgad5eb8b"><span class="section-number-2">1</span> Overview</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 This <a href="https://github.com/tvraman/pick-sticks">directory</a> contains an implementation of the <i>Pick Up Sticks</i> game
@@ -264,8 +286,8 @@ respect to code organization.
 </div>
 </div>
 
-<div id="outline-container-orgdd2012e" class="outline-2">
-<h2 id="orgdd2012e"><span class="section-number-2">2</span> Programming Environment</h2>
+<div id="outline-container-org362770d" class="outline-2">
+<h2 id="org362770d"><span class="section-number-2">2</span> Programming Environment</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 here is a short overview of  the programming environment  used:
@@ -291,8 +313,8 @@ speech-enabled Emacs packages <code>rust-mode</code>, <code>racer</code> and <co
 </div>
 
 
-<div id="outline-container-orgdb8b34d" class="outline-2">
-<h2 id="orgdb8b34d"><span class="section-number-2">3</span> Books</h2>
+<div id="outline-container-org03f2c50" class="outline-2">
+<h2 id="org03f2c50"><span class="section-number-2">3</span> Books</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 I  downloaded  <i>The Rust Programming Language (2018)</i> from Bookshare
@@ -304,11 +326,79 @@ boiler-plate at the top.
 </p>
 </div>
 </div>
+
+<div id="outline-container-orga377a12" class="outline-2">
+<h2 id="orga377a12"><span class="section-number-2">4</span> Experience Learning Rust</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+I usually find that I learn a language better if I write some code as
+I learn the language.
+In this instance, I decided to program the pick-up-sticks game &#x2014; a
+simple game that I programmed in 1987 for the final class project for
+CS-101 at IIT-Bombay. Here are the rules of the game:
+</p>
+
+<ol class="org-ol">
+<li>This is a two-player game  and the game starts with \(n\) sticks.</li>
+<li>The first player can pick at most \(n-1\)  sticks.</li>
+<li>Assume a player picks \(k\) sticks. At the  subsequent turn, opponent
+player can pick at most  \(2 * k\) sticks.</li>
+<li>The player who is able to <i>clean-up</i> the remaining sticks while
+adhering to the rules is the winner.</li>
+</ol>
+
+<p>
+Read  <a href="http://emacspeak.sourceforge.net/raman/publications/thinking-of-math/thinking-of-math.html">Thinking Of Mathematics (Section 5)</a> for a description of an
+algorithm that is guaranteed to win.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgadf2938" class="outline-2">
+<h2 id="orgadf2938"><span class="section-number-2">5</span> The Implementation</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+Learning Rust's ownership rules for memory management, and learning to
+use references  the Rust way were some of the things that were unique
+to this learning experience.
+Rust has some unique features including declaring lifetimes that are
+typically needed in more advanced cases; however in my initial
+attempts, not doing things the Rust way caused compile-time errors
+that initially guided me toward using and declaring
+lifetimes. Eventually, all of those declarations became unnecessary.
+More generally, the Rust compiler turns out to be a very good Rust
+teacher.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgb2748d2" class="outline-2">
+<h2 id="orgb2748d2"><span class="section-number-2">6</span> Crux Of The Implementation</h2>
+<div class="outline-text-2" id="text-6">
+<p>
+See module <code>game.rs</code> for the implementation. The core of the
+implementation is still a handful of lines to implement the winning
+strategy of:
+</p>
+
+<ol class="org-ol">
+<li>If the number of sticks at the start is a Fibonacci number, ask
+the opponent to play first.</li>
+<li>At each turn, force the opponent toward the closest Fibonacci number.</li>
+<li>Do above while respecting the limit rule, i.e. if you pick \(k\)
+sticks, the opponent can pick up to \(2k\) sticks, so never pick  \(k\)
+where \(3k >= n\).</li>
+<li>The result of (3) is to subdivide the game into smaller games
+when playing with larger values of \(n\) &#x2014; see the <span class="underline">while</span> loop in
+method    <i>your<sub>move</sub></i>.</li>
+</ol>
+</div>
+</div>
 </div>
 <div id="postamble" class="status">
 <p class="date">Date: 2020-06-14 Sun 00:00</p>
 <p class="author">Author: T.V Raman</p>
-<p class="date">Created: 2020-06-16 Tue 08:19</p>
+<p class="date">Created: 2020-06-16 Tue 08:54</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

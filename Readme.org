@@ -39,7 +39,53 @@ distribution is a little less usable since it's split into multiple
 smaller HTML files with each file repeating a lot of navigational
 boiler-plate at the top.
 
+* Experience Learning Rust 
 
+I usually find that I learn a language better if I write some code as
+I learn the language.
+In this instance, I decided to program the pick-up-sticks game --- a
+simple game that I programmed in 1987 for the final class project for
+CS-101 at IIT-Bombay. Here are the rules of the game:
+
+  1. This is a two-player game  and the game starts with $n$ sticks.
+  2. The first player can pick at most $n-1$  sticks.
+  3. Assume a player picks $k$ sticks. At the  subsequent turn, opponent
+     player can pick at most  $2 * k$ sticks.
+  4. The player who is able to /clean-up/ the remaining sticks while
+     adhering to the rules is the winner.
+     
+Read  [[http://emacspeak.sourceforge.net/raman/publications/thinking-of-math/thinking-of-math.html][Thinking Of Mathematics (Section 5)]] for a description of an
+algorithm that is guaranteed to win.
+
+* The Implementation 
+
+Learning Rust's ownership rules for memory management, and learning to
+use references  the Rust way were some of the things that were unique
+to this learning experience.
+Rust has some unique features including declaring lifetimes that are
+typically needed in more advanced cases; however in my initial
+attempts, not doing things the Rust way caused compile-time errors
+that initially guided me toward using and declaring
+lifetimes. Eventually, all of those declarations became unnecessary.
+More generally, the Rust compiler turns out to be a very good Rust
+teacher.
+
+* Crux Of The Implementation
+
+See module ~game.rs~ for the implementation. The core of the
+implementation is still a handful of lines to implement the winning
+strategy of:
+
+  1. If the number of sticks at the start is a Fibonacci number, ask
+     the opponent to play first.
+  2. At each turn, force the opponent toward the closest Fibonacci number.
+  3. Do above while respecting the limit rule, i.e. if you pick $k$
+     sticks, the opponent can pick up to $2k$ sticks, so never pick  $k$
+     where $3k >= n$.
+  4. The result of (3) is to subdivide the game into smaller games
+     when playing with larger values of $n$ --- see the _while_ loop in
+     method    /your_move/.
+  
 
 
 
