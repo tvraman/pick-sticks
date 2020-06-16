@@ -17,7 +17,7 @@ respect to code organization.
 here is a short overview of  the programming environment  used:
 
   1. Emacs 28.0.50 with emacspeak 52.0.
-  2. Package  ~eglot~ for managing the project with an  LSP. server.
+  2. Package  ~eglot~ for managing the project with an  LSP server.
   3. Rust Language Server [[https://github.com/rust-lang-nursery/rls][(RLS)]] as the LSP server.
   4. Package ~company~ for completion.
   5. Package ~yasnippet~ for code templates.
@@ -50,7 +50,7 @@ CS-101 at IIT-Bombay. Here are the rules of the game:
   1. This is a two-player game  and the game starts with $n$ sticks.
   2. The first player can pick at most $n-1$  sticks.
   3. Assume a player picks $k$ sticks. At the  subsequent turn, opponent
-     player can pick at most  $2 * k$ sticks.
+      can pick at most  $2 * k$ sticks.
   4. The player who is able to /clean-up/ the remaining sticks while
      adhering to the rules is the winner.
      
@@ -84,7 +84,7 @@ strategy of:
      where $3k >= n$.
   4. The result of (3) is to subdivide the game into smaller games
      when playing with larger values of $n$ --- see the _while_ loop in
-     method    /your_move/.
+     method    ~my_move~.
   
 
 
@@ -101,7 +101,7 @@ strategy of:
 #+options: d:(not "LOGBOOK") date:t e:t email:nil f:t inline:t num:t
 #+options: p:nil pri:nil prop:nil stat:t tags:t tasks:t tex:t
 #+options: timestamp:t title:t toc:nil todo:t |:t
-#+title: The Pick-Up Sticks Game
+#+title: Learning Rust: The Pick-Up Sticks Game.
 #+date: <2020-06-14 Sun>
 #+author: T.V Raman
 #+email: raman@google.com

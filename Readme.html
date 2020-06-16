@@ -3,10 +3,10 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2020-06-16 Tue 08:54 -->
+<!-- 2020-06-16 Tue 09:52 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>The Pick-Up Sticks Game</title>
+<title>Learning Rust: The Pick-Up Sticks Game.</title>
 <meta name="generator" content="Org mode" />
 <meta name="author" content="T.V Raman" />
 <style type="text/css">
@@ -264,9 +264,9 @@ for the JavaScript code in this tag.
 </head>
 <body>
 <div id="content">
-<h1 class="title">The Pick-Up Sticks Game</h1>
-<div id="outline-container-orgad5eb8b" class="outline-2">
-<h2 id="orgad5eb8b"><span class="section-number-2">1</span> Overview</h2>
+<h1 class="title">Learning Rust: The Pick-Up Sticks Game.</h1>
+<div id="outline-container-orgc3a23fb" class="outline-2">
+<h2 id="orgc3a23fb"><span class="section-number-2">1</span> Overview</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 This <a href="https://github.com/tvraman/pick-sticks">directory</a> contains an implementation of the <i>Pick Up Sticks</i> game
@@ -286,8 +286,8 @@ respect to code organization.
 </div>
 </div>
 
-<div id="outline-container-org362770d" class="outline-2">
-<h2 id="org362770d"><span class="section-number-2">2</span> Programming Environment</h2>
+<div id="outline-container-org2fb098b" class="outline-2">
+<h2 id="org2fb098b"><span class="section-number-2">2</span> Programming Environment</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 here is a short overview of  the programming environment  used:
@@ -295,7 +295,7 @@ here is a short overview of  the programming environment  used:
 
 <ol class="org-ol">
 <li>Emacs 28.0.50 with emacspeak 52.0.</li>
-<li>Package  <code>eglot</code> for managing the project with an  LSP. server.</li>
+<li>Package  <code>eglot</code> for managing the project with an  LSP server.</li>
 <li>Rust Language Server <a href="https://github.com/rust-lang-nursery/rls">(RLS)</a> as the LSP server.</li>
 <li>Package <code>company</code> for completion.</li>
 <li>Package <code>yasnippet</code> for code templates.</li>
@@ -313,8 +313,8 @@ speech-enabled Emacs packages <code>rust-mode</code>, <code>racer</code> and <co
 </div>
 
 
-<div id="outline-container-org03f2c50" class="outline-2">
-<h2 id="org03f2c50"><span class="section-number-2">3</span> Books</h2>
+<div id="outline-container-org2e5ca5b" class="outline-2">
+<h2 id="org2e5ca5b"><span class="section-number-2">3</span> Books</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 I  downloaded  <i>The Rust Programming Language (2018)</i> from Bookshare
@@ -327,8 +327,8 @@ boiler-plate at the top.
 </div>
 </div>
 
-<div id="outline-container-orga377a12" class="outline-2">
-<h2 id="orga377a12"><span class="section-number-2">4</span> Experience Learning Rust</h2>
+<div id="outline-container-orgb3b7dee" class="outline-2">
+<h2 id="orgb3b7dee"><span class="section-number-2">4</span> Experience Learning Rust</h2>
 <div class="outline-text-2" id="text-4">
 <p>
 I usually find that I learn a language better if I write some code as
@@ -342,7 +342,7 @@ CS-101 at IIT-Bombay. Here are the rules of the game:
 <li>This is a two-player game  and the game starts with \(n\) sticks.</li>
 <li>The first player can pick at most \(n-1\)  sticks.</li>
 <li>Assume a player picks \(k\) sticks. At the  subsequent turn, opponent
-player can pick at most  \(2 * k\) sticks.</li>
+can pick at most  \(2 * k\) sticks.</li>
 <li>The player who is able to <i>clean-up</i> the remaining sticks while
 adhering to the rules is the winner.</li>
 </ol>
@@ -354,8 +354,8 @@ algorithm that is guaranteed to win.
 </div>
 </div>
 
-<div id="outline-container-orgadf2938" class="outline-2">
-<h2 id="orgadf2938"><span class="section-number-2">5</span> The Implementation</h2>
+<div id="outline-container-org22fe6ab" class="outline-2">
+<h2 id="org22fe6ab"><span class="section-number-2">5</span> The Implementation</h2>
 <div class="outline-text-2" id="text-5">
 <p>
 Learning Rust's ownership rules for memory management, and learning to
@@ -372,8 +372,8 @@ teacher.
 </div>
 </div>
 
-<div id="outline-container-orgb2748d2" class="outline-2">
-<h2 id="orgb2748d2"><span class="section-number-2">6</span> Crux Of The Implementation</h2>
+<div id="outline-container-orgd235d81" class="outline-2">
+<h2 id="orgd235d81"><span class="section-number-2">6</span> Crux Of The Implementation</h2>
 <div class="outline-text-2" id="text-6">
 <p>
 See module <code>game.rs</code> for the implementation. The core of the
@@ -390,7 +390,7 @@ sticks, the opponent can pick up to \(2k\) sticks, so never pick  \(k\)
 where \(3k >= n\).</li>
 <li>The result of (3) is to subdivide the game into smaller games
 when playing with larger values of \(n\) &#x2014; see the <span class="underline">while</span> loop in
-method    <i>your<sub>move</sub></i>.</li>
+method    <code>my_move</code>.</li>
 </ol>
 </div>
 </div>
@@ -398,7 +398,7 @@ method    <i>your<sub>move</sub></i>.</li>
 <div id="postamble" class="status">
 <p class="date">Date: 2020-06-14 Sun 00:00</p>
 <p class="author">Author: T.V Raman</p>
-<p class="date">Created: 2020-06-16 Tue 08:54</p>
+<p class="date">Created: 2020-06-16 Tue 09:52</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
