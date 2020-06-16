@@ -1,6 +1,6 @@
 * Overview 
 
-This directory contains an implementation of the /Pick Up Sticks/ game
+This [[https://github.com/tvraman/pick-sticks][directory]] contains an implementation of the /Pick Up Sticks/ game
 described in my paper [[http://emacspeak.sourceforge.net/raman/publications/thinking-of-math/thinking-of-math.html][Thinking Of Mathematics (Section 5)]].
 
 It's an interesting experience writing it in Rust as I learn the
@@ -11,6 +11,44 @@ and is clearly not advisable for programming in the large, it's
 interesting to observe that a more structured implementation as seen
 in this Rust implementation qrequires a lot more fore-thought with
 respect to code organization.
+
+* Programming Environment 
+
+here is a short overview of  the programming environment  used:
+
+  1. Emacs 28.0.50 with emacspeak 52.0.
+  2. Package  ~eglot~ for managing the project with an  LSP. server.
+  3. Rust Language Server [[https://github.com/rust-lang-nursery/rls][(RLS)]] as the LSP server.
+  4. Package ~company~ for completion.
+  5. Package ~yasnippet~ for code templates.
+  6. Package ~rust-mode~ for Rust editing smarts.
+  7. Package ~racer~ for additional cross-referencing and
+     documentation support.
+  8. Package ~cargo~ for cargo integration from inside Emacs.
+
+In the process of setting up my Rust environment, I also
+speech-enabled Emacs packages ~rust-mode~, ~racer~ and ~cargo~ for Emacspeak.
+
+
+* Books 
+
+I  downloaded  /The Rust Programming Language (2018)/ from Bookshare
+and it's what I am still using as I write this. Note that this book is
+also available in the Rust distribution. The version in the Rust
+distribution is a little less usable since it's split into multiple
+smaller HTML files with each file repeating a lot of navigational
+boiler-plate at the top.
+
+
+
+
+
+
+
+
+
+
+
 
 #+options: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline
 #+options: author:t broken-links:nil c:nil creator:nil

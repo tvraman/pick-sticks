@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2020-06-14 Sun 10:32 -->
+<!-- 2020-06-16 Tue 08:19 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>The Pick-Up Sticks Game</title>
@@ -243,11 +243,11 @@ for the JavaScript code in this tag.
 <body>
 <div id="content">
 <h1 class="title">The Pick-Up Sticks Game</h1>
-<div id="outline-container-org30404cf" class="outline-2">
-<h2 id="org30404cf"><span class="section-number-2">1</span> Overview</h2>
+<div id="outline-container-orgca46896" class="outline-2">
+<h2 id="orgca46896"><span class="section-number-2">1</span> Overview</h2>
 <div class="outline-text-2" id="text-1">
 <p>
-This directory contains an implementation of the <i>Pick Up Sticks</i> game
+This <a href="https://github.com/tvraman/pick-sticks">directory</a> contains an implementation of the <i>Pick Up Sticks</i> game
 described in my paper <a href="http://emacspeak.sourceforge.net/raman/publications/thinking-of-math/thinking-of-math.html">Thinking Of Mathematics (Section 5)</a>.
 </p>
 
@@ -263,11 +263,52 @@ respect to code organization.
 </p>
 </div>
 </div>
+
+<div id="outline-container-orgdd2012e" class="outline-2">
+<h2 id="orgdd2012e"><span class="section-number-2">2</span> Programming Environment</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+here is a short overview of  the programming environment  used:
+</p>
+
+<ol class="org-ol">
+<li>Emacs 28.0.50 with emacspeak 52.0.</li>
+<li>Package  <code>eglot</code> for managing the project with an  LSP. server.</li>
+<li>Rust Language Server <a href="https://github.com/rust-lang-nursery/rls">(RLS)</a> as the LSP server.</li>
+<li>Package <code>company</code> for completion.</li>
+<li>Package <code>yasnippet</code> for code templates.</li>
+<li>Package <code>rust-mode</code> for Rust editing smarts.</li>
+<li>Package <code>racer</code> for additional cross-referencing and
+documentation support.</li>
+<li>Package <code>cargo</code> for cargo integration from inside Emacs.</li>
+</ol>
+
+<p>
+In the process of setting up my Rust environment, I also
+speech-enabled Emacs packages <code>rust-mode</code>, <code>racer</code> and <code>cargo</code> for Emacspeak.
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-orgdb8b34d" class="outline-2">
+<h2 id="orgdb8b34d"><span class="section-number-2">3</span> Books</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+I  downloaded  <i>The Rust Programming Language (2018)</i> from Bookshare
+and it's what I am still using as I write this. Note that this book is
+also available in the Rust distribution. The version in the Rust
+distribution is a little less usable since it's split into multiple
+smaller HTML files with each file repeating a lot of navigational
+boiler-plate at the top.
+</p>
+</div>
+</div>
 </div>
 <div id="postamble" class="status">
 <p class="date">Date: 2020-06-14 Sun 00:00</p>
 <p class="author">Author: T.V Raman</p>
-<p class="date">Created: 2020-06-14 Sun 10:32</p>
+<p class="date">Created: 2020-06-16 Tue 08:19</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
