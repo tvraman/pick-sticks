@@ -39,7 +39,7 @@ fn read_number(prompt: &str) -> u16 {
   let input: u16 = match input.trim().parse() {
     Ok(num) => num,
     Err(_) => {
-      println!("You didn't enter  a valid number.",);
+      println!("You didn't enter  a valid number.");
       exit(0);
     }
   };
